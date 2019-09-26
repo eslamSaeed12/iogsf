@@ -1,0 +1,9 @@
+
+body{
+    border-radius: 25em;
+    transform: scale(0.4);
+    opacity: .5;
+    box-sizing: border-box;
+    transform: scale(.5);
+    display: flex;
+}

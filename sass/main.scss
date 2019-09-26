@@ -1,0 +1,13 @@
+
+@import "variables";
+@import "foreach";
+@import "mixins";
+
+*{
+    font-family: Cairo !important;
+}
+
+
+main{
+    height: 100vh;
+}
