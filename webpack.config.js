@@ -1,7 +1,6 @@
 const htmlwebpackplugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
 const autoprefixer = require("autoprefixer");
@@ -23,38 +22,9 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           "css-loader",
           "postcss-loader",
-          "sass-loader",
+          "sass-loader"
         ]
       },
-      // image loader
-      {
-        test: /\.(gif|png|jpe?g|svg)$/i,
-        use: [
-          "file-loader",
-          {
-            loader: "image-webpack-loader",
-            options: {
-              bypassOnDebug: true, // webpack@1.x
-              disable: true // webpack@2.x and newer
-            }
-          }
-        ]
-      },
-      // end of image loader
-      // css loader
-      {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-              outputPath: "fonts/"
-            }
-          }
-        ]
-      },
-      // end of css loader
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
@@ -68,26 +38,39 @@ module.exports = {
               },
               // optipng.enabled: false will disable optipng
               optipng: {
-                enabled: false
+                enabled: false,
               },
               pngquant: {
-                quality: [0.65, 0.9],
+                quality: [0.65, 0.90],
                 speed: 4
               },
               gifsicle: {
-                interlaced: false
+                interlaced: false,
               },
               // the webp option will enable WEBP
               webp: {
                 quality: 75
               }
             }
+          },
+        ],
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "fonts/"
+            }
           }
         ]
       },
+      // image loader
       {
-        test: /\.pug$/,
-        use: ["pug-loader"]
+        test: /\.html$/,
+        use: ["html-loader"]
       }
       // end of image responsive loader
     ]
@@ -100,7 +83,8 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new htmlwebpackplugin({
-      template: "ejs/main.pug"
+      template: "html/index.html",
+      title : "IOGSF"
     }),
     new OptimizeCSSAssetsPlugin(),
     new TerserJSPlugin(),
@@ -117,12 +101,6 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: "all"
-    },
-
-    minimizer: [
-      new UglifyJsPlugin({
-        test: /\.js(\?.*)?$/i
-      })
-    ]
+    }
   }
 };

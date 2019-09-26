@@ -1,11 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.12/"></script>
 </head>
+
 <body>
-   
+    <main>
+        <!-- navbar and header -->
+        <section>
+
+            <!-- start of navbar -->
+
+            <nav class="navbar_ py-4 shadow">
+                <div class="container">
+                    <div class="row">
+                        <div class="list-nav col-10 d-none d-md-block">
+                            <ul class="nav d-flex">
+                                <li class="nav-item">
+                                    <a id="main" href="#" class="nav-link hvr-underline-from-right"> الصفحة الرئيسية</a>
+                                </li>
+                                <li>
+                                    <a id="contact" href="#" class="nav-link hvr-underline-from-right mx-5"> تواصل معنا
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="explorer" href="#" class="nav-link hvr-underline-from-right"> المستعرض </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav-toggle-sm d-block d-md-none col-8 ">
+                            <button id="btn-toggler" class="btn bar-icon-btn "> <i
+                                    class="fas fa-bars hvr-grow"></i></button>
+                        </div>
+                        <div class="logo-brand col-2">
+                            <h2 class="text-right">تكامل</h2>
+                        </div>
+                        <div class="col-12 text-center d-block d-md-none ">
+                            <ul id="nav_" class="list-group d-toggle navbar-drop-down">
+                                <li class="list-group-item">
+                                    <a id="main" href="#" class="nav-link hvr-underline-from-right"> الصفحة الرئيسية</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a id="contact" href="#" class="nav-link hvr-underline-from-right mx-5"> تواصل معنا
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a id="explorer" href="#" class="nav-link hvr-underline-from-right"> المستعرض </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- end of navbar -->
+            <header class="h-active" id="main">
+                <div class="overlay-layer d-flex flex-column justify-content-center">
+                    <div class="text-center">
+                        <h1 class="display-4"> مؤسسة تكامل للعلوم الجغرافيه </h1>
+                    </div>
+                </div>
+            </header>
+            <header class="" id="contact">
+                <div class="overlay-layer  d-flex flex-column justify-content-center align-content-center">
+                    <div class="text-center pt-5">
+                        <form class="mt-5">
+                            <div class="form-group my-4">
+                                <label> الاسم </label>
+                                <input type="text" class="form-control  w-25 mx-auto" />
+                            </div>
+                            <div class="form-group my-4">
+                                <label> البريد الالكتروني </label>
+                                <input type="text" class="form-control w-25 mx-auto" />
+                            </div>
+                            <div class="form-group my-4">
+                                <label> الرساله </label>
+                                <textarea class="form-control w-25 mx-auto"> </textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary">ارسال</button>
+                        </form>
+                    </div>
+                </div>
+            </header>
+            <header class="" id="explorer">
+                <div class="overlay-layer d-flex flex-column justify-content-center">
+                    <div id="viewDiv" class="map">
+
+                    </div>
+                </div>
+            </header>
+        </section>
+    </main>
+
+    <script>
+
+
+        if (window.navigator.geolocation) {
+            window.navigator.geolocation.getCurrentPosition(po => {
+                require(
+                    [
+                        "esri/Map",
+                        "esri/views/MapView",
+                        "esri/widgets/BasemapToggle",
+                        "esri/widgets/BasemapGallery"
+                    ]
+                    , function (Map, MapView, BasemapToggle, BasemapGallery) {
+
+
+
+                        var map = new Map({
+                            basemap: "topo-vector"
+                        });
+
+                        var view = new MapView({
+                            container: "viewDiv",
+                            map: map,
+                            center: [po.coords.longitude, po.coords.latitude],
+                            zoom: 11
+                        });
+                        /* 
+                          var basemapToggle = new BasemapToggle({
+                              view: view,
+                              nextBasemap: "satellite"
+                          });
+  
+  
+                        */
+                        var basemapGallery = new BasemapGallery({
+                            view: view,
+                            source: {
+                                portal: {
+                                    url: "https://www.arcgis.com",
+                                    useVectorBasemaps: true  // Load vector tile basemaps
+                                }
+                            }
+                        });
+                        view.ui.add(basemapGallery, "top-right");
+
+
+                        // view.ui.add(basemapToggle, "bottom-right");
+
+
+                    });
+            },
+                err => {
+                    alert("your browser dosent support geolocation")
+                })
+        }
+
+
+
+    </script>
 </body>
+
 </html>

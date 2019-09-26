@@ -1,13 +1,147 @@
-
 @import "variables";
 @import "foreach";
 @import "mixins";
+@import "media_query.scss";
 
-*{
-    font-family: Cairo !important;
+body {
+  font-family: Cairo !important;
+  direction: rtl;
+  overflow: hidden;
 }
 
+main {
+  height: 100vh;
+  overflow: hidden;
+}
 
-main{
-    height: 100vh;
+.navbar_ {
+  background: #ffff;
+  color: $l-green;
+
+  a {
+    color: $l-green;
+    font-weight: bold;
+
+    &:hover {
+      color: unset;
+    }
+  }
+  .bar-icon-btn {
+    background: none;
+    color: $l-green;
+    i {
+      font-size: 1.5em;
+    }
+    &:active {
+      color: $l-green;
+      box-shadow: none;
+    }
+    &:focus,
+    &:active {
+      box-shadow: none;
+    }
+  }
+}
+
+.hvr-underline-from-right:before {
+  background: $l-green;
+  border-radius: 2em;
+}
+.navbar-drop-down {
+  overflow: hidden;
+  height: 12em;
+  transition: height 0.8s ease;
+  .list-group-item {
+    border: none;
+    background: none;
+  }
+}
+
+.d-toggle {
+  height: 0;
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+header {
+  overflow: hidden;
+  position: absolute;
+  right: 100%;
+  background: center center;
+  transition: right 1s ease;
+  width: 100vw;
+  background-size: cover;
+  height: 100vh;
+  background-image: url("../media/close-up-geography-globe-893126.jpg");
+  .overlay-layer {
+    background-color: #012626dc;
+    height: inherit;
+    color: $white;
+  }
+}
+.h-active {
+  position: absolute;
+  right: 0%;
+}
+
+.form-control {
+  border-radius: 2em;
+  background-color: $l-green !important;
+}
+@media (max-width: 768px) {
+  .form-control {
+    width: 50vw !important;
+  }
+}
+textarea {
+  border-radius: 10px !important;
+  height: 150px !important;
+  background-color: $l-green;
+  resize: none;
+}
+.form-control:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 0.2rem $yellow;
+  color: $white;
+  background-color: #f2f2f259 !important;
+}
+form {
+  label {
+    font-weight: bold;
+  }
+}
+
+.btn-primary {
+  background-color: $yellow;
+  border-color: $yellow;
+  border-radius: 2em;
+  font-weight: bold;
+  &:hover {
+    background-color: $l-green;
+    border-color: transparent;
+  }
+  &:focus {
+    background-color: $l-green;
+    border-color: transparent;
+    box-shadow: 0 0 0 0.2rem $yellow;
+  }
+  &:active {
+    background-color: $l-green !important;
+    border-color: transparent !important;
+    box-shadow: 0 0 0 0.2rem $yellow !important;
+  }
+}
+
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.esri-ui-top-right.esri-ui-corner,.esri-ui-top-left.esri-ui-corner{
+top: 7em;
 }
